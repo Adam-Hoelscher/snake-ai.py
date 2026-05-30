@@ -2,7 +2,7 @@
 
 from game import Game
 import random
-import player
+import pathfinder_player
 import typer
 
 
@@ -12,7 +12,7 @@ def main(size: int = typer.Option(30),
 
     random.seed(seed)
     game = Game(size=size, growth=growth, draw=True)
-    print(game.play(player.GraphSearchPlayer))
+    print(game.play(pathfinder_player.GraphSearchPlayer))
     input()
 
 

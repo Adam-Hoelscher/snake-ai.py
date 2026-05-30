@@ -116,9 +116,7 @@ class Game(object):
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         if event.key in (pygame.K_PLUS, pygame.K_KP_PLUS, pygame.K_RIGHTBRACKET):
-                            rest -= .05
-                            if rest < 0:
-                                rest = 0
+                            rest = max(rest - .05, 0)
                         if event.key in (pygame.K_MINUS, pygame.K_KP_MINUS, pygame.K_LEFTBRACKET):
                             rest += .05
                         if event.key == pygame.K_ESCAPE:
