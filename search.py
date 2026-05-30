@@ -1,7 +1,6 @@
 from collections import namedtuple
 from heapq import heappop, heappush
-import numpy as np
-import pandas as pd
+import random
 
 from direction import Direction, Point
 
@@ -26,6 +25,7 @@ def a_star(src, dst, open, heuristic_func=Point.euclid):
 
         seen.add(loc)
 
+        random.shuffle(Direction)
         for d in Direction:
             next_loc = loc + d
             if next_loc in open:

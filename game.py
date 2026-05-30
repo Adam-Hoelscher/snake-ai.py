@@ -12,6 +12,7 @@ from direction import Direction, Point
 
 DRAW_BUFFER = 2
 
+
 class Color(pygame.Color, Enum):
     black = pygame.Color(0, 0, 0)
     white = pygame.Color(255, 255, 255)
@@ -27,7 +28,7 @@ class Game(object):
         self.growth = growth
         self.max_score = (size * size - 2) // growth
         # print("making window")
-        self.cell_size = 600 // size
+        self.cell_size = 900 // size
         # print("creating board")
         self.size = size
         self.board = set(Point(x, y) for x, y in product(*(2*[range(size)])))
@@ -114,12 +115,14 @@ class Game(object):
             if self.draw:
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
-                        if event.key in (pygame.K_PLUS, pygame.K_KP_PLUS):
+                        if event.key in (pygame.K_PLUS, pygame.K_KP_PLUS, pygame.K_RIGHTBRACKET):
                             rest -= .05
                             if rest < 0:
                                 rest = 0
-                        if event.key in (pygame.K_MINUS, pygame.K_KP_MINUS):
+                        if event.key in (pygame.K_MINUS, pygame.K_KP_MINUS, pygame.K_LEFTBRACKET):
                             rest += .05
+                        if event.key == pygame.K_ESCAPE:
+                            sys.exit(0)
 
             moves_needed = 1
             while moves_needed:
@@ -147,7 +150,7 @@ class Game(object):
                 return self.score, self.max_score, self.moves, self.tot_play
 
     def _make_move(self):
-        
+
         snake = self.snake
         board = self.board
         t0 = time.time()
@@ -157,7 +160,8 @@ class Game(object):
         self.tot_play += mv_time
         self.avg_play *= .99
         self.avg_play += .01 * mv_time
-        print(f'move {self.moves:,}: {move}: {self.tot_play:.3f}: {self.avg_play:.6f}: {mv_time:.6f}')
+        print(
+            f'move {self.moves:,}: {move}: {self.tot_play:.3f}: {self.avg_play:.6f}: {mv_time:.6f}')
 
         if move is None:
             print("PLAYER FAILED")
@@ -197,7 +201,7 @@ class Snake(object):
             self.growth -= 1
         else:
             open.add(self.body.pop())
-        
+
         head = self.body[0]
         new_head = head + direction
         self.body.appendleft(new_head)

@@ -1,20 +1,20 @@
+#! /usr/bin/env python
+
 from game import Game
 import random
 import player
-import argparse
+import typer
 
-parser = argparse.ArgumentParser(description='Play snake.')
-parser.add_argument('--size', type=int, nargs='?', default=30)
-parser.add_argument('--growth', type=int, nargs='?', default=2)
-parser.add_argument('--seed', type=int, nargs='?', default=1)
 
-args = vars(parser.parse_args())
+def main(size: int = typer.Option(30),
+         growth: int = typer.Option(2),
+         seed=typer.Option(1)):
 
-print(args)
+    random.seed(seed)
+    game = Game(size=size, growth=growth, draw=True)
+    print(game.play(player.GraphSearchPlayer))
+    input()
 
-random.seed(args.pop('seed'))
 
-game = Game(**args, draw=True)
-print(game.play(player.GraphSearchPlayer))
-input()
-
+if __name__ == "__main__":
+    typer.run(main)
