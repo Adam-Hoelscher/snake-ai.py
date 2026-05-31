@@ -16,7 +16,7 @@ size = 5
 s = Solver()
 
 # Z3 datatype to represent points
-PointSort = Datatype("Point")
+PointSort = Datatype("PointSort")
 PointSort.declare("new", ("x", IntSort()), ("y", IntSort()))
 PointSort = PointSort.create()
 
@@ -58,35 +58,41 @@ def feed(p):
     )
 
 
-PointSeq = SeqSort(PointSort)
-
-Path = Const("Path", PointSeq)
+Path = Const("Path", SeqSort(PointSort))
 pLen = Length(Path)
 
 bLen = len(body)
+
+# Constraints so that we can dovetail with sruvival logic
 s.add(pLen > bLen)
 for i, pt in enumerate(body):
     j = pLen-bLen+i
     s.add(PointSort.x(Path[j]) == pt.x)
     s.add(PointSort.y(Path[j]) == pt.y)
 
+# Index variables for checking Path
 i, j = Ints("i j")
 used_path = And(0 <= i, i < pLen, 0 <= j, j < pLen)
 
+# Path inbounds
 s.add(ForAll([i], Implies(
     used_path,
     inbounds(Path[i])
 )))
 
+# Adjacent indexes are adjacent points
 s.add(ForAll([i, j], Implies(
     And(used_path, i+1 == j),
     adjacent(Path[i], Path[j])
 )))
 
+# Points are all distinct
 s.add(ForAll([i, j], Implies(
     And(0 <= i, i < j, j < pLen),
     Path[i] != Path[j]
 )))
+
+# Food must be in the Path
 s.add(Exists(i, And(
     used_path,
     feed(Path[i]))))
