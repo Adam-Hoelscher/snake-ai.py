@@ -1,9 +1,10 @@
 ## Problem statement
-Several years ago, I wrote a game engine and an AI player for the classic game snake. That AI player uses a serialized pair of A* searches to determine when/how to eat and has fall back logic to simply survive when it cannot find a safe way to eat. While not previously recorded in this repo, the existing AI was named "Pickles (the Path-finder)"
-I thought it would be a fun use of Z3 to implement a new AI player; this new player will use SMT to determine/how to eat and will reuse the Pickles' fall back survival logic. This new player is named "Sammy (the Solver)"
+
+Several years ago, I wrote a game engine and an AI player for the classic game snake. That AI player uses a serialized pair of A* searches to determine when/how to eat and has fall back logic to simply survive when it cannot find a safe way to eat. While not previously recorded in this repo, the existing AI was named "Pickles" (the Path-finder).
+I thought it would be a fun use of Z3 to implement a new AI player; this new player will use SMT to determine/how to eat and will reuse the Pickles' fall back survival logic. This new player is named "Sammy" (the Solver).
 
 ## Working prototype
-Point at the file in your code that runs the end-to-end example. Describe what input it takes, what output it produces, and what part of the encoding is doing the real work.
+
 Whether or not I have working prototype is up for debate. Everything I've written here is in the file `single_example.py`. 
 
 Before going into the new code, there are a few things to note about the existing code.
@@ -15,7 +16,7 @@ Before going into the new code, there are a few things to note about the existin
 
 In my new code, I wanted to start off by getting Sammy to find a path just to the food on a small board.
 
-My needs take 3 inputs, which are all attributes of the `Game` object from my existing code.
+My code take 3 inputs, which are all attributes of the `Game` object from my existing code.
 * `body`: the deque of `Point` objects that currently make up the snake
 * `food`: a single `Optional[Point]` of where the next piece of food is located
 * `size`: the width of the play field; the field is assumed to be square 
