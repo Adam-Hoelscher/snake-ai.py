@@ -32,8 +32,8 @@ With that scaffolding in place, these are the constraints:
 * The length of `Path` must be more than the current length of the snake, because it will include the current snake (see above, Survival)
 * The suffix of the `Path` must represent the same `Point` objects that make up the current snake in the same order (again Survival). The prefix that the solver adds can be used to determine the moves to provide to the game engine.
 * For all indexes in the `Path` the `Point` must be `inbounds`.
-* For all pairs of i, j with i+1==j, `Path[i]` and `Path[j]` must be `adjacent`.
-* For all paris of i, j with i<j, `Path[i]` cannot equal `Path[j]`. i.e. the elements in `Path` must be distinct. Z3's `Distinct` constraint does not seem to work with custom `Datatype` objects.
+* For all pairs of i, j with `i+1==j`, `Path[i]` and `Path[j]` must be `adjacent`.
+* For all paris of i, j with `i<j`, `Path[i]` cannot equal `Path[j]`. i.e. the elements in `Path` must be distinct. Z3's `Distinct` constraint does not seem to work with custom `Datatype` objects.
 * There must be some i such that `feed(Path[i])`. i.e. the `Path` must actually eat the food.
 
 The problems arises in actually running the example. Take this example, with the head of the snake at (1, 2) and the food at (3, 4). On my machine the solver takes 8 seconds to find the path in blue; this is unreasonably long.
