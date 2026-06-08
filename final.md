@@ -35,3 +35,5 @@ The runtime is where the solver loses. For very small boards (just 36 cells) the
 I used just a little ChatGPT right at the beginning of brainstorming for this project; I asked it for ways to apply SAT to Snake in hopes of finding something fun to do for this project. I hated its suggestions and decided to just go full bore on getting the solver to play the game.
 
 The most valuable part of this project for me was the practice in doing pure SAT instead of optimization. I work as a data scientist; every day I build models that minimize an objective (loss) function. Getting a chance to practice SAT with something I already understand quite well (I've spent way too much time on Snake in the past) has got me thinking about how to apply this to real problems at work.
+
+DEMO LINK: https://youtu.be/xnztW046NXA
