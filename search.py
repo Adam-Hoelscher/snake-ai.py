@@ -1,6 +1,6 @@
+import random
 from collections import namedtuple
 from heapq import heappop, heappush
-import random
 
 from direction import Direction, Point
 

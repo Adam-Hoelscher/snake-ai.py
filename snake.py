@@ -1,18 +1,26 @@
 #! /usr/bin/env python
 
-from game import Game
 import random
-import pathfinder_player
+
 import typer
 
+import pathfinder_player
+import solver_player
+from game import Game
 
-def main(size: int = typer.Option(30),
-         growth: int = typer.Option(2),
-         seed=typer.Option(1)):
+
+def main(
+        player: str = typer.Option(),
+        size: int = typer.Option(6),
+        growth: int = typer.Option(2),
+        seed=typer.Option(1)):
 
     random.seed(seed)
     game = Game(size=size, growth=growth, draw=True)
-    print(game.play(pathfinder_player.GraphSearchPlayer))
+    if player[0].upper() == "P":
+        print(game.play(pathfinder_player.GraphSearchPlayer))
+    elif player[0].upper() == "Z":
+        print(game.play(solver_player.SolverPlayer))
     input()
 
 
